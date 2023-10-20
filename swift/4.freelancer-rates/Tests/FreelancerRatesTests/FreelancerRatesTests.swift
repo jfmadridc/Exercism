@@ -2,7 +2,7 @@ import XCTest
 
 @testable import FreelancerRates
 
-let runAll = Bool(ProcessInfo.processInfo.environment["RUNALL", default: "false"]) ?? false
+let runAll = Bool(ProcessInfo.processInfo.environment["RUNALL", default: "true"]) ?? false
 
 class TaskDailyRateFrom: XCTestCase {
   func testdailyRateFromFor60() {
