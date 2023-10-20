@@ -2,7 +2,7 @@ import XCTest
 
 @testable import WingsQuest
 
-let runAll = Bool(ProcessInfo.processInfo.environment["RUNALL", default: "false"]) ?? false
+let runAll = Bool(ProcessInfo.processInfo.environment["RUNALL", default: "true"]) ?? false
 
 class TaskBonusPoints: XCTestCase {
   func testGetsBonusPoints() {
