@@ -1,56 +1,19 @@
 import Foundation
 func sliceSize(diameter: Double?, slices: Int?) -> Double? {
-	guard let diameter = diameter, diameter >= 0,
-				let slices = slices, slices >= 1 
-		else {
+	guard let diameter = diameter, diameter >= 0, let slices = slices, slices >= 1 else {
 			return nil
 	}
-
 	let pizzaRadius = diameter / 2
 	let pizzaArea = .pi * pow(pizzaRadius,2)
-
 	return pizzaArea / Double(slices)
-	 
 }
 
-func biggestSlice(
-	diameterA: String, slicesA: String,
-	diameterB: String, slicesB: String
-) -> String {
-	let areaSliceA: Double?
-	let areaSliceB: Double?
+func biggestSlice(diameterA: String, slicesA: String, diameterB: String, slicesB: String) -> String {
+	let areaSliceA = sliceSize(diameter: Double(diameterA), slices: Int(slicesA))
+	let areaSliceB = sliceSize(diameter: Double(diameterB), slices: Int(slicesB))
 
-	if let diameterA = Double(diameterA), let slicesA = Int(slicesA){
-		areaSliceA = sliceSize(diameter: diameterA, slices: slicesA)
-	} else {
-		areaSliceA = nil
-	}
-
-	if let diameterB = Double(diameterB), let slicesB = Int(slicesB){
-		areaSliceB = sliceSize(diameter: diameterB, slices: slicesB)
-	} else {
-		areaSliceB = nil
-	}
-
-	if areaSliceA is Double && areaSliceB == nil {
-		return "Slice A is bigger"
-	} else if areaSliceB is Double && areaSliceA == nil{
-		return "Slice B is bigger"
-	}
-
-	if areaSliceA is Double && areaSliceB is Double {
-		if areaSliceA! == areaSliceB! {
-			return "Neither slice is bigger"
-		} else if areaSliceA! > areaSliceB! {
-			return "Slice A is bigger"
-		} else if (areaSliceA)! < (areaSliceB)! {
-			return "Slice B is bigger"
-		} 
-	}
-
-	if areaSliceA == nil && areaSliceB == nil{
-		return "Neither slice is bigger"
-	}
-
-	return ""
+	guard areaSliceA != areaSliceB else { return "Neither slice is bigger" }
+	guard let areaSliceA = areaSliceA else { return "Slice B is bigger" }
+	guard let areaSliceB = areaSliceB else { return "Slice A is bigger" }
+	return areaSliceA > areaSliceB ? "Slice A is bigger" : "Slice B is bigger"
 }
