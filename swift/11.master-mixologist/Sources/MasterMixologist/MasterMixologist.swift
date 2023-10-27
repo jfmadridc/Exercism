@@ -51,40 +51,36 @@ func orderTracker(orders: [(drink: String, time: String)]) -> (
 	var beerData: (first: String, last: String, total: Int)? = nil
 	var sodaData: (first: String, last: String, total: Int)? = nil
 
-	var wasBeerOrdered = false
 	var firstBeer = ""
 	var lastBeer = ""
 	var totalBeers = 0
 	
-	var wasSodaOrdered = false
 	var firstSoda = ""
 	var lastSoda = ""
 	var totalSodas = 0
 
 	for order in orders{
-		if order.drink == "beer" && wasBeerOrdered == false {
-			wasBeerOrdered = true
+		if order.drink == "beer" && totalBeers == 0 {
 			firstBeer = order.time
 			lastBeer = order.time
 			totalBeers += 1
-		} else if order.drink == "beer" && wasBeerOrdered == true {
+		} else if order.drink == "beer"{
 			lastBeer = order.time
 			totalBeers += 1
 		}
 
-		if order.drink == "soda" && wasSodaOrdered == false {
-			wasSodaOrdered = true
+		if order.drink == "soda" && totalSodas == 0 {
 			firstSoda = order.time
 			lastSoda = order.time
 			totalSodas += 1
-		} else if order.drink == "soda" && wasSodaOrdered == true {
+		} else if order.drink == "soda"{
 			lastSoda = order.time
 			totalSodas += 1
 		}
 	}
 	
-	if wasBeerOrdered{ beerData = (firstBeer, lastBeer, totalBeers) }
-	if wasSodaOrdered{ sodaData = (firstSoda, lastSoda, totalSodas) }
+	if totalBeers != 0 { beerData = (firstBeer, lastBeer, totalBeers) }
+	if totalSodas != 0 { sodaData = (firstSoda, lastSoda, totalSodas) }
 
 	return (beer: beerData, soda: sodaData)
 }
